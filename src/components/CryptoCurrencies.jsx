@@ -15,10 +15,9 @@ export const CryptoCurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState(cryptosList?.data?.coins);
 
   useEffect(() => {
-    const filteredCryptos = cryptosList?.data?.coins.filter((coin) =>
-      coin.name.toLowerCase().includes(SearchTerm.toLowerCase())
-    );
-
+    const filteredCryptos = cryptosList?.data?.coins.filter((coin) => {
+      return coin.name.toLowerCase().includes(SearchTerm.toLowerCase());
+    });
     setCryptos(filteredCryptos);
   }, [cryptosList, SearchTerm]);
 
@@ -37,8 +36,14 @@ export const CryptoCurrencies = ({ simplified }) => {
 
       <Row gutter={[32, 32]} className="crypto-card-container">
         {cryptos?.map((currency) => (
-          <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
-            <Link to={`/crypto/${currency.id}`}>
+          <Col
+            xs={24}
+            sm={12}
+            lg={6}
+            className="crypto-card"
+            key={currency.uuid}
+          >
+            <Link to={`/crypto/${currency.uuid}`}>
               <Card
                 hoverable
                 title={`${currency.rank}. ${currency.name}`}
